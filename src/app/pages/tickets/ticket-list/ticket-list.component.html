@@ -1,0 +1,29 @@
+<div>
+  <ng-container *ngIf = "renderComplete">
+<!--    <p>Количество элементов: {{tourWrap.childElementCount}}</p>-->
+    <p>Количество элементов: {{tickets?.length || 0}}</p>
+    <p>Активный элемент: {{blockDirective.activeElementIndex}}</p>
+  </ng-container>
+
+  <div class="mb-3">
+    <input #ticketSearch [(ngModel)]="ticketSearchValue" type="text" pInputText>
+  </div>
+
+  <div appBlocksStyle
+       *ngIf="tickets"
+       #tourWrap
+       #blockDirective='blocksStyle'
+       [selector]="'.ticket-item'"
+       [initFirst]="false"
+       (renderComplete)="directiveRenderComplete($event)"
+       class="d-flex flex-wrap justify-content-around">
+    <div class="ticket-item col-3 m-2"
+         *ngFor="let item of tickets; let i = index"
+         (click)="goToTicketInfoPage(item)">
+      <div class="ticket-title">{{item.name}} </div>
+      <div class="ticket-img">
+        <img class="w-100" src="/assets/img/{{item.img}}" alt=""/>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+//основной файл, куда мы будем импортировать все другие стили
+//сам файл подключаем в "styles" (angular.json)
+
+@import 'general.scss';
+@import 'primeng-custom.scss';
