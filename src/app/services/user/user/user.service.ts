@@ -19,7 +19,7 @@ export class UserService {
 
   setToken(token: string): void {
     this.token = token;
-    window.localStorage.setItem('userToken', token);  //устанавливаем токен в userService и в localStorage
+    window.localStorage.setItem('userToken', JSON.stringify(token));  //устанавливаем токен в userService и в localStorage
   }
   getToken(): string | null {
     console.log('getToken()');
@@ -28,9 +28,10 @@ export class UserService {
 
   removeToken(): void {
     console.log('removeToken()');
-    // this.user = null;
-    // this.token = null;
-    // window.localStorage.removeItem('userToken');
+    //this.user = null;
+    this.token = null;
+    window.localStorage.removeItem('userToken');
   }
+
 
 }

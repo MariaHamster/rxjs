@@ -1,4 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {TicketListComponent} from "../pages/tickets/ticket-list/ticket-list.component";
 
 @Directive({
   selector: '[appBlocksStyle]',
@@ -17,7 +18,8 @@ export class BlocksStyleDirective {
   private index: number = 0;
   activeElementIndex: number = 0;
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef,
+              private ticketListComponent: TicketListComponent) { }
 
   ngOnInit(): void {
   }
@@ -48,31 +50,44 @@ export class BlocksStyleDirective {
       if (ev.key === "ArrowLeft" && this.index === 0) {
       return false;
       }
-      (this.items[this.index] as HTMLElement).removeAttribute('style')
+      if (this.items[this.index]) {
+        (this.items[this.index] as HTMLElement).removeAttribute('style')
+      }
     }
 
     if (ev.key === 'ArrowRight') {
+      if (this.index === (this.ticketListComponent.tickets.length - 1)) {
+        if (this.items[this.index]) {
+          (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid red');
+        }
+        return false;
+      }
       this.index++;
       if (this.items[this.index]) {
         (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid red');
       }
-    } else if (ev.key === 'ArrowLeft') {
-      if (this.index === 0) {
-        return false;
-      }
-      this.index--;
-      if (this.items[this.index]) {
-        (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid red');
-      }
     }
+      if (ev.key === 'ArrowLeft') {
+        if (this.index === 0) {
+          return false;
+        }
+        this.index--;
+        if (this.items[this.index]) {
+          (this.items[this.index] as HTMLElement).setAttribute('style', 'border: 2px solid red');
+        }
+      }
     this.activeElementIndex = this.index;
+
+
   }
 
   initStyle(index: number) {
     if (this.items[index]) {
       (this.items[index] as HTMLElement).setAttribute('style', 'border: 2px solid red');
     } else if (!this.items[index]) {
-      (this.items[index] as HTMLElement).removeAttribute('style');
+      if (this.items[this.index]) {
+        (this.items[index] as HTMLElement).removeAttribute('style');
+      }
     }
   }
 

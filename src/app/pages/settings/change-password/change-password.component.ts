@@ -44,12 +44,16 @@ export class ChangePasswordComponent implements OnInit {
       this.messageService.add({severity: 'warn', summary: 'Error', detail: 'Пароли не совпадают'});
       return false;
     } else {
-      this.messageService.add({severity:'success', summary: 'Success', detail: 'Пароль успешно изменён'});
       const user = this.userService.getUser();
       const newUser = <IUser> {...user};
       newUser.psw = this.newPassword;
       this.userService.setUser(newUser);
       window.localStorage.setItem('user_' + newUser.login, JSON.stringify(newUser));
+
+      console.log('userService: ', this.userService.getUser());
+      console.log('localStorage: ', window.localStorage.getItem('user_' + newUser.login));
+
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'Пароль успешно изменён'});
     }
 
   }

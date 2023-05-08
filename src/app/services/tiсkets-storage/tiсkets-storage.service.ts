@@ -5,7 +5,7 @@ import {ITour} from "../../models/tours";
   providedIn: 'root'
 })
 export class TicketsStorageService {
-  private ticketStorage: ITour[];
+  private ticketStorage: ITour[] = [];
 
   constructor() { }
 

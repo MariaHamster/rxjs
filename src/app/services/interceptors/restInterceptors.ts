@@ -8,9 +8,8 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class RestInterceptorsService implements  HttpInterceptor {
-  constructor(private UserService: UserService) {
 
-  }
+  constructor(private UserService: UserService) { }
 
   intercept(req: HttpRequest<any>,
             next: HttpHandler): Observable<HttpEvent<any>> {

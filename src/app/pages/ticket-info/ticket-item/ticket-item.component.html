@@ -47,6 +47,7 @@
 <!--        <span class="mx-3">Возраст </span>-->
         <ng-container *ngTemplateOutlet="userFieldTitle; context:{titleValue:'Возраст'}"></ng-container>
         <p-inputNumber formControlName="age"
+                       [min]="0"
                        [showButtons]="true">
         </p-inputNumber>
       </div>
